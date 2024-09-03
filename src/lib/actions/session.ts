@@ -2,6 +2,7 @@
 
 import { SessionOptions, getIronSession } from "iron-session";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 interface SessionData {
   email?: string;
@@ -29,4 +30,10 @@ export async function getSession() {
   }
 
   return session;
+}
+
+export async function logOut() {
+  const session = await getIronSession<SessionData>(cookies(), sessionOptions);
+  session.destroy();
+  redirect("/auth");
 }
