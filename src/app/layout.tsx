@@ -20,7 +20,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <div className="flex justify-center gap-3">
-            <main className="mx-5 w-100 md:w-2/4 xl:w-1/4">{children}</main>
+            <main className="mx-5 w-100 md:w-2/4 xl:w-1/4 min-h-screen flex flex-col justify-center gap-3">
+              {children}
+            </main>
           </div>
         </Providers>
       </body>
