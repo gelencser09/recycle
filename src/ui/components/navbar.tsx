@@ -8,7 +8,7 @@ import logo from "../icons/logo.svg";
 export async function Header() {
   const { email } = await getSession();
   return (
-    <Navbar className="">
+    <Navbar>
       <Link href="/">
         <NavbarBrand className="flex gap-1 items-center">
           <Image src={logo} alt="Recycle icon" className="w-7 h-7" />
