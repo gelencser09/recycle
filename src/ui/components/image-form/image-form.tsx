@@ -6,9 +6,15 @@ import { useState } from "react";
 import CameraComponent from "./camera-component";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import ImageDisplay from "./image-display";
+import { processImage } from "@/lib/actions/send-image";
+import { useFormState, useFormStatus } from "react-dom";
+import { Spinner } from "@nextui-org/spinner";
 
 export default function ImageForm() {
   const [image, setImage] = useState<string | undefined>();
+  const [state, dispatch] = useFormState(processImage, {
+    error: undefined,
+  });
 
   function handleFileChange(e: any) {
     const file = e.target.files[0];
@@ -24,34 +30,55 @@ export default function ImageForm() {
   }
 
   return (
-    <form action="" className="flex flex-col gap-4">
-      <Tabs>
-        <Tab key="upload" title="Upload photo" className="flex flex-col gap-4">
-          {image ? (
-            <ImageDisplay image={image} setImage={setImage} />
-          ) : (
+    <form
+      action={(formData: FormData) => {
+        if (!image) return;
+        formData.append("base64image", image);
+        dispatch(formData);
+      }}
+      className="flex flex-col gap-4"
+    >
+      {image ? (
+        <ImageDisplay image={image} setImage={setImage} />
+      ) : (
+        <Tabs>
+          <Tab
+            key="upload"
+            title="Upload photo"
+            className="flex flex-col gap-4"
+          >
             <input
               type="file"
               accept="image/jpg, image/png"
               onChange={handleFileChange}
             />
-          )}
-        </Tab>
+          </Tab>
 
-        <Tab key="take" title="Take photo">
-          {image ? (
-            <ImageDisplay image={image} setImage={setImage} />
-          ) : (
+          <Tab key="take" title="Take photo">
             <CameraComponent image={image} setImage={setImage} />
-          )}
-        </Tab>
-      </Tabs>
+          </Tab>
+        </Tabs>
+      )}
 
       <Divider />
 
-      <Button type="submit" color="primary" variant="ghost" isDisabled={!image}>
-        Check!
-      </Button>
+      <Submit image={!!image} />
+
+      {state.error && <p className="text-red-500">{state.error}</p>}
     </form>
   );
 }
+
+const Submit = ({ image }: { image: boolean }) => {
+  const { pending } = useFormStatus();
+  return (
+    <Button
+      type="submit"
+      color="primary"
+      variant="ghost"
+      isDisabled={!image || pending}
+    >
+      {pending ? <Spinner /> : "Submit!"}
+    </Button>
+  );
+};
