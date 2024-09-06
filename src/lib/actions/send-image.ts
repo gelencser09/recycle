@@ -1,5 +1,6 @@
 "use server";
-import { rescaleImageUnder200px } from "../image";
+import { getSHA256Hash, rescaleImageUnder200px } from "../image";
+import { identifyTrashType } from "../client/openai";
 
 type ProcessImageState = {
   error?: string | undefined;
@@ -9,6 +10,8 @@ export async function processImage(
   prevState: ProcessImageState,
   formData: FormData,
 ) {
+  // check available queries for user
+
   const base64image = formData.get("base64image") as string;
 
   const { resizedBase64Image, error } = await rescaleImageUnder200px(
@@ -19,16 +22,15 @@ export async function processImage(
     return { error };
   }
 
-  // check cache
+  const sha256Hash = getSHA256Hash(resizedBase64Image!);
 
-  // call API
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // check db
 
-  // save to cache
+  const response = await identifyTrashType(resizedBase64Image!);
+
+  // save to db
 
   // redirect
-
-  console.log(resizedBase64Image);
 
   return {};
 }

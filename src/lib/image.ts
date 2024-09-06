@@ -1,4 +1,5 @@
 import sharp from "sharp";
+import crypto from "crypto";
 
 export async function rescaleImageUnder200px(base64Image: string) {
   try {
@@ -31,4 +32,10 @@ export async function rescaleImageUnder200px(base64Image: string) {
     console.error("Error resizing image:", error);
     return { error: "Failed to resize image" };
   }
+}
+
+export function getSHA256Hash(base64Image: string): string {
+  // Create a SHA-256 hash of the base64 image
+  const hash = crypto.createHash("sha256").update(base64Image).digest("hex");
+  return hash;
 }
