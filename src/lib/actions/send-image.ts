@@ -1,6 +1,8 @@
 "use server";
 import { getSHA256Hash, rescaleImageUnder200px } from "../image";
 import { identifyTrashType } from "../client/openai";
+import { getImage, saveImage } from "../data/image";
+import { redirect } from "next/navigation";
 
 type ProcessImageState = {
   error?: string | undefined;
@@ -24,13 +26,23 @@ export async function processImage(
 
   const sha256Hash = getSHA256Hash(resizedBase64Image!);
 
-  // check db
+  const existingImage = await getImage(sha256Hash);
+
+  if (existingImage) {
+    console.log("Image already processed");
+    console.log("Redirecting to existing image", sha256Hash);
+    redirect(`/image/${sha256Hash}`);
+  }
 
   const response = await identifyTrashType(resizedBase64Image!);
 
-  // save to db
+  if (!response) {
+    return { error: "Failed to identify trash type" };
+  }
 
-  // redirect
+  await saveImage(sha256Hash, response);
+
+  redirect(`/image/${sha256Hash}`);
 
   return {};
 }
