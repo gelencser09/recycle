@@ -29,7 +29,7 @@ export default function RootLayout({
           <div className="min-h-screen">
             <Header />
             <main className="flex justify-center">
-              <div className="w-100 m-3 md:w-2/4 md:mt-14 xl:w-1/4">
+              <div className="w-full m-3 md:w-3/4 lg:w-2/4 md:mt-14">
                 {children}
               </div>
             </main>
