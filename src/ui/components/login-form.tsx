@@ -1,31 +1,31 @@
 "use client";
 
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
 import { EnvelopeIcon } from "@heroicons/react/16/solid";
 import { useFormState } from "react-dom";
 import { LoginState, login } from "@/lib/actions/login";
+import { Alert, Button, Label, TextInput } from "flowbite-react";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 export function LoginForm() {
   const [state, dispatch] = useFormState<LoginState, FormData>(login, {});
 
   return (
     <form action={dispatch} className="flex flex-col gap-4">
-      <Input
+      {/* <Label htmlFor="email" value="Your email" /> */}
+      <Alert color="warning" icon={InformationCircleIcon} className="italic">
+        Your email address will be shared with otp.dev and used for
+        authentication.
+      </Alert>
+      <TextInput
         required
         type="email"
         name="email"
-        label="Email"
+        id="email"
         placeholder="you@example.com"
-        labelPlacement="outside"
-        startContent={<EnvelopeIcon className="w-7 h-7" />}
+        icon={EnvelopeIcon}
       />
-      <p className="text-sm italic text-yellow-500">
-        Your email address will be provided to GetOTP. It will be used to
-        contact you with a one-time passcode and stored for authentication
-        purposes.
-      </p>
-      <Button color="primary" variant="ghost" type="submit">
+
+      <Button gradientDuoTone="purpleToBlue" type="submit">
         Get passcode
       </Button>
       {state?.errors ? (

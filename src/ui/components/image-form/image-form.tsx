@@ -1,14 +1,11 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
 import { useState } from "react";
 import CameraComponent from "./camera-component";
-import { Tabs, Tab } from "@nextui-org/tabs";
 import ImageDisplay from "./image-display";
 import { processImage } from "@/lib/actions/send-image";
 import { useFormState, useFormStatus } from "react-dom";
-import { Spinner } from "@nextui-org/spinner";
+import { Button, FileInput, HR, Spinner, Tabs } from "flowbite-react";
 
 export default function ImageForm() {
   const [image, setImage] = useState<string | undefined>();
@@ -41,26 +38,21 @@ export default function ImageForm() {
       {image ? (
         <ImageDisplay image={image} setImage={setImage} />
       ) : (
-        <Tabs>
-          <Tab
-            key="upload"
-            title="Upload photo"
-            className="flex flex-col gap-4"
-          >
-            <input
-              type="file"
-              accept="image/jpg, image/png"
+        <Tabs variant="fullWidth">
+          <Tabs.Item key="upload" title="Upload photo">
+            <FileInput
+              accept="image/jpg, image/jpeg, image/png"
               onChange={handleFileChange}
             />
-          </Tab>
+          </Tabs.Item>
 
-          <Tab key="take" title="Take photo">
+          <Tabs.Item key="take" title="Take photo">
             <CameraComponent image={image} setImage={setImage} />
-          </Tab>
+          </Tabs.Item>
         </Tabs>
       )}
 
-      <Divider />
+      <HR className="m-1" />
 
       <Submit image={!!image} />
 
@@ -72,12 +64,7 @@ export default function ImageForm() {
 const Submit = ({ image }: { image: boolean }) => {
   const { pending } = useFormStatus();
   return (
-    <Button
-      type="submit"
-      color="primary"
-      variant="ghost"
-      isDisabled={!image || pending}
-    >
+    <Button type="submit" gradientDuoTone="purpleToBlue" disabled={!image}>
       {pending ? <Spinner /> : "Submit!"}
     </Button>
   );

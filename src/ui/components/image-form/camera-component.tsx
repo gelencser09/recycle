@@ -1,6 +1,6 @@
-import { CameraIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { Button } from "@nextui-org/button";
-import { Dispatch, RefObject, SetStateAction, useRef } from "react";
+import { CameraIcon } from "@heroicons/react/24/outline";
+import { Button } from "flowbite-react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import { Camera, CameraType } from "react-camera-pro";
 
 export default function CameraComponent({
@@ -13,50 +13,27 @@ export default function CameraComponent({
   const camera = useRef<CameraType>(null);
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      {image ? (
-        <>
-          <img src={image} alt="Taken photo" />
-          <Button
-            isIconOnly
-            color="danger"
-            aria-label="Delete"
-            className="p-1"
-            onClick={() => setImage(undefined)}
-          >
-            <TrashIcon />
-          </Button>
-        </>
-      ) : (
-        <>
-          <div className="rounded-md overflow-hidden w-full">
-            <Camera
-              ref={camera}
-              errorMessages={{
-                noCameraAccessible: "No camera",
-                permissionDenied: "No permission",
-                switchCamera: undefined,
-                canvas: undefined,
-              }}
-              aspectRatio={4 / 3}
-            />
-          </div>
-          <div className="flex justify-center">
-            <Button
-              isIconOnly
-              aria-label="Take a photo!"
-              color="default"
-              variant="ghost"
-              onClick={() =>
-                setImage(camera.current?.takePhoto("base64url") as string)
-              }
-              className="p-1"
-            >
-              <CameraIcon />
-            </Button>
-          </div>
-        </>
-      )}
+    <div className="rounded-md overflow-hidden w-full flex flex-col gap-4 items-center">
+      <Camera
+        ref={camera}
+        errorMessages={{
+          noCameraAccessible: "No camera",
+          permissionDenied: "No permission",
+          switchCamera: undefined,
+          canvas: undefined,
+        }}
+        aspectRatio={4 / 3}
+      />
+
+      <Button
+        color="light"
+        aria-label="Take a photo!"
+        onClick={() =>
+          setImage(camera.current?.takePhoto("base64url") as string)
+        }
+      >
+        <CameraIcon className="w-5 h-5" />
+      </Button>
     </div>
   );
 }

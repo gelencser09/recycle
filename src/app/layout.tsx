@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Providers } from "./providers";
 import { Header } from "@/ui/components/navbar";
+import { Flowbite, ThemeModeScript } from "flowbite-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeModeScript />
+      </head>
       <body className={inter.className}>
-        <Providers>
+        <Flowbite>
           <div className="min-h-screen">
             <Header />
             <main className="flex justify-center pt-24">
@@ -31,7 +34,7 @@ export default function RootLayout({
               </div>
             </main>
           </div>
-        </Providers>
+        </Flowbite>
       </body>
     </html>
   );

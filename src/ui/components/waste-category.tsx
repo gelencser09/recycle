@@ -1,4 +1,3 @@
-import { Chip } from "@nextui-org/chip";
 import Image from "next/image";
 
 import plast from "../icons/plast.png";
@@ -9,6 +8,7 @@ import cardboard from "../icons/pap.png";
 import food from "../icons/food.png";
 import glass from "../icons/glas.png";
 import residual from "../icons/restaffald.png";
+import { Badge } from "flowbite-react";
 
 type CategoryName =
   | "RESIDUAL"
@@ -30,7 +30,9 @@ export default function WasteCategory({
       <WasteIcon category={category.name as CategoryName} />
       <div className="flex flex-wrap gap-1">
         {category.parts.map((part) => (
-          <Chip key={part}>{part}</Chip>
+          <Badge key={part} color="gray">
+            {part}
+          </Badge>
         ))}
       </div>
     </div>
@@ -67,5 +69,5 @@ function WasteIcon({ category }: { category: CategoryName }) {
       break;
   }
 
-  return <Image src={icon} alt={category} className="rounded-md h-10 w-10" />;
+  return <Image src={icon} alt={category} className="rounded-md h-16 w-16" />;
 }

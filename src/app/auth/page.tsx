@@ -1,15 +1,13 @@
 import { LoginForm } from "@/ui/components/login-form";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import { Card } from "flowbite-react";
 
 export default function Auth() {
   return (
-    <Card className="p-5">
-      <CardHeader>
-        <h3>Get your one-time passcode!</h3>
-      </CardHeader>
-      <CardBody>
-        <LoginForm />
-      </CardBody>
+    <Card>
+      <h5 className="text-lg font-bold text-center">
+        Get your one-time passcode!
+      </h5>
+      <LoginForm />
     </Card>
   );
 }
