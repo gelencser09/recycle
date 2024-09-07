@@ -6,7 +6,7 @@ const config: Config = {
   theme: {
     extend: {},
   },
-  darkMode: "media",
+  // darkMode: "media",
   plugins: [flowbite.plugin()],
 };
 export default config;
