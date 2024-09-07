@@ -33,8 +33,8 @@ export default function CameraComponent({
             <Camera
               ref={camera}
               errorMessages={{
-                noCameraAccessible: undefined,
-                permissionDenied: undefined,
+                noCameraAccessible: "No camera",
+                permissionDenied: "No permission",
                 switchCamera: undefined,
                 canvas: undefined,
               }}
