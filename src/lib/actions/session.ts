@@ -19,7 +19,6 @@ const sessionOptions: SessionOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
   },
-  ttl: 3600,
 };
 
 export async function getSession() {
