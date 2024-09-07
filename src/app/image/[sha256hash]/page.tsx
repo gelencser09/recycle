@@ -12,7 +12,7 @@ export default async function Page({
 
   return (
     <Card className="flex flex-col gap-4">
-      <h5 className="font-bold text-2xl">Here's what you can do!</h5>
+      <h5 className="font-bold text-2xl">{"Here's what you can do!"}</h5>
       <p className="font-medium">
         Sort the trash by these categories and follow any additional steps
         below.

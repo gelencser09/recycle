@@ -33,7 +33,7 @@ export async function login(prevState: LoginState, formData: FormData) {
     redirectLink = link;
     await initializeNewOtp(email, otp_id, otp_secret);
   } catch (e: any) {
-    console.log(e);
+    // console.log(e);
   } finally {
     if (redirectLink) {
       redirect(redirectLink);

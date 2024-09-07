@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { Button, Spinner } from "flowbite-react";
 import { useFormStatus } from "react-dom";
+import Image from "next/image";
 
 export default function ImageDisplay({
   image,
@@ -15,7 +16,7 @@ export default function ImageDisplay({
 
   return (
     <div className="flex flex-col gap-4">
-      <img src={image} alt="Taken photo" className="rounded-md" />
+      <Image src={image} alt="Taken photo" className="rounded-md" />
       <div className="flex justify-center gap-5">
         <Button type="submit" gradientDuoTone="purpleToBlue">
           {pending ? <Spinner /> : "Submit!"}
