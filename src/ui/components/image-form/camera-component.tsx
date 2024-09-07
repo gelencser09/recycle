@@ -1,6 +1,15 @@
+"use client";
+
 import { CameraIcon } from "@heroicons/react/24/outline";
 import { Button } from "flowbite-react";
-import { Dispatch, SetStateAction, useRef } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Camera, CameraType } from "react-camera-pro";
 
 export default function CameraComponent({
@@ -10,21 +19,27 @@ export default function CameraComponent({
   image: string | undefined;
   setImage: Dispatch<SetStateAction<string | undefined>>;
 }) {
-  const camera = useRef<CameraType>(null);
+  const camera = useRef<any>(null);
+
+  const capture = useCallback(() => {
+    const imageSrc = camera.current!.getScreenshot();
+    console.log(imageSrc);
+    setImage(imageSrc);
+  }, [camera]);
 
   return (
-    <div className="rounded-md overflow-hidden w-full flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-4 items-center">
       <Camera
         ref={camera}
+        facingMode="environment"
         errorMessages={{
           noCameraAccessible: "No camera",
           permissionDenied: "No permission",
           switchCamera: undefined,
           canvas: undefined,
         }}
-        aspectRatio={4 / 3}
+        aspectRatio={3 / 4}
       />
-
       <Button
         color="light"
         aria-label="Take a photo!"

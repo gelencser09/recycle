@@ -5,7 +5,8 @@ import CameraComponent from "./camera-component";
 import ImageDisplay from "./image-display";
 import { processImage } from "@/lib/actions/send-image";
 import { useFormState, useFormStatus } from "react-dom";
-import { Button, FileInput, HR, Spinner, Tabs } from "flowbite-react";
+import { Alert, Button, FileInput, HR, Spinner, Tabs } from "flowbite-react";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 export default function ImageForm() {
   const [image, setImage] = useState<string | undefined>();
@@ -38,21 +39,25 @@ export default function ImageForm() {
       {image ? (
         <ImageDisplay image={image} setImage={setImage} />
       ) : (
-        <Tabs variant="fullWidth">
-          <Tabs.Item key="upload" title="Upload photo">
-            <FileInput
-              accept="image/jpg, image/jpeg, image/png"
-              onChange={handleFileChange}
-            />
-          </Tabs.Item>
+        // <Tabs variant="fullWidth">
+        //   <Tabs.Item key="upload" title="Upload photo">
+        //     <FileInput
+        //       accept="image/jpg, image/jpeg, image/png"
+        //       onChange={handleFileChange}
+        //     />
+        //   </Tabs.Item>
 
-          <Tabs.Item key="take" title="Take photo">
-            <CameraComponent image={image} setImage={setImage} />
-          </Tabs.Item>
-        </Tabs>
+        //   <Tabs.Item key="take" title="Take photo">
+        <CameraComponent image={image} setImage={setImage} />
+        //   </Tabs.Item>
+        // </Tabs>
       )}
 
-      <HR className="m-1" />
+      <HR className="m-1 w-full" />
+
+      <Alert color="warning" icon={InformationCircleIcon}>
+        Your image will be processed by OpenAI.
+      </Alert>
 
       <Submit image={!!image} />
 

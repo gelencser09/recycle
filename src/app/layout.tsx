@@ -28,8 +28,8 @@ export default function RootLayout({
         <Flowbite>
           <div className="min-h-screen">
             <Header />
-            <main className="flex justify-center pt-24">
-              <div className="mx-5 w-100 md:w-2/4 xl:w-1/4 flex flex-col gap-3">
+            <main className="flex justify-center">
+              <div className="w-100 m-3 md:w-2/4 md:mt-14 xl:w-1/4">
                 {children}
               </div>
             </main>

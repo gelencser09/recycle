@@ -5,9 +5,9 @@ import { Card } from "flowbite-react";
 export default async function Home() {
   const { email } = await getSession();
   return (
-    <Card>
+    <Card className="w-full">
       <h5 className="text-2xl font-bold text-center">Take a pic!</h5>
-      <p>{email}</p>
+      {/* <p>{email}</p> */}
       <ImageForm />
     </Card>
   );

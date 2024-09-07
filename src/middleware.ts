@@ -10,9 +10,9 @@ export async function middleware(request: NextRequest) {
   //     return NextResponse.redirect(new URL("/auth", request.url));
   // }
 
-  if (request.nextUrl.pathname !== "/") {
-    if (!!session.email) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  }
+  // if (request.nextUrl.pathname !== "/") {
+  //   if (!!session.email) {
+  //     return NextResponse.redirect(new URL("/", request.url));
+  //   }
+  // }
 }

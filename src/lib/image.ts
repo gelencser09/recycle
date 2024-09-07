@@ -17,11 +17,8 @@ export async function rescaleImageUnder200px(base64Image: string) {
     // Decode base64 image to buffer
     const imageBuffer = Buffer.from(imageData, "base64");
 
-    // Validate the image data using sharp's metadata method
-    await sharp(imageBuffer).metadata();
-
     // Resize the image using sharp, keeping the aspect ratio
-    const resizedImageBuffer = await sharp(imageBuffer)
+    const resizedImageBuffer = await sharp(imageBuffer, { failOnError: false })
       .resize({ width: 200, height: 200, fit: "inside" })
       .toBuffer();
 
