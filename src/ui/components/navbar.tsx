@@ -7,7 +7,7 @@ import { Navbar, NavbarBrand } from "flowbite-react";
 export async function Header() {
   const { email } = await getSession();
   return (
-    <Navbar>
+    <Navbar className="bg-transparent">
       <NavbarBrand href="/" className="flex gap-1 items-center">
         <Image src={logo} alt="Recycle icon" className="w-7 h-7" />
         <h5 className="text-2xl font-bold">Recycle🇩🇰</h5>

@@ -33,7 +33,11 @@ export async function login(prevState: LoginState, formData: FormData) {
     redirectLink = link;
     await initializeNewOtp(email, otp_id, otp_secret);
   } catch (e: any) {
-    // console.log(e);
+    return {
+      errors: [
+        "There has been a problem with the OTP provider. Pleasy check back later!",
+      ],
+    };
   } finally {
     if (redirectLink) {
       redirect(redirectLink);

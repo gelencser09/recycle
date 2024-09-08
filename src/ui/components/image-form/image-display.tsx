@@ -1,7 +1,7 @@
 import React from "react";
 import { Dispatch, SetStateAction } from "react";
-import { TrashIcon } from "@heroicons/react/24/outline";
-import { Button, Spinner } from "flowbite-react";
+import { InformationCircleIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { Alert, Button, Card, Spinner } from "flowbite-react";
 import { useFormStatus } from "react-dom";
 import Image from "next/image";
 
@@ -15,8 +15,16 @@ export default function ImageDisplay({
   const { pending } = useFormStatus();
 
   return (
-    <div className="flex flex-col gap-4">
-      <Image src={image} alt="Taken photo" className="rounded-md" />
+    <Card className="w-full lg:w-2/4">
+      <Image
+        fill
+        src={image}
+        alt="Taken photo"
+        className="rounded-md !relative"
+      />
+      <Alert icon={InformationCircleIcon}>
+        Your image will be processed by OpenAI.
+      </Alert>
       <div className="flex justify-center gap-5">
         <Button type="submit" gradientDuoTone="purpleToBlue">
           {pending ? <Spinner /> : "Submit!"}
@@ -30,6 +38,6 @@ export default function ImageDisplay({
           <TrashIcon className="w-5 h-5" />
         </Button>
       </div>
-    </div>
+    </Card>
   );
 }

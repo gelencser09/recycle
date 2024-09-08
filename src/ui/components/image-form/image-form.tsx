@@ -8,6 +8,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import {
   Alert,
   Button,
+  Card,
   FileInput,
   HR,
   Modal,
@@ -37,21 +38,18 @@ export default function ImageForm() {
       className="flex flex-col gap-4 items-center"
     >
       {image ? (
-        <>
-          <Alert icon={InformationCircleIcon}>
-            Your image will be processed by OpenAI.
-          </Alert>
-          <ImageDisplay image={image} setImage={setImage} />
-        </>
+        <ImageDisplay image={image} setImage={setImage} />
       ) : openCameraModal ? (
         <CameraComponent setImage={setImage} />
       ) : (
         <>
-          <h5 className="text-2xl font-bold text-center mb-5">
+          <h5 className="text-2xl font-bold mb-5 text-center">
             How to recycle?
           </h5>
-          <p>Recycle🇩🇰 can help you sort your trash with AI support!</p>
-          <p>
+          <p className="text-center">
+            Recycle🇩🇰 can help you sort your trash with AI support!
+          </p>
+          <p className="text-center">
             Take a picture of the trash, and the app will sort it into the
             relevant recycling categories.
           </p>
@@ -64,6 +62,10 @@ export default function ImageForm() {
               <CameraIcon className="w-16 h-16" />
             </Button>
           </div>
+          <Alert icon={InformationCircleIcon}>
+            The app is super-duper beta version, please do not abuse, so that
+            everyone can try it! 🫡
+          </Alert>
         </>
       )}
 
